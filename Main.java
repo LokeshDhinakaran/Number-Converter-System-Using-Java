@@ -1,0 +1,103 @@
+import java.util.Scanner;
+
+import Controllers.AuthController;
+import Controllers.ConverterController;
+
+public class Main {
+    private static final Scanner sc = new Scanner(System.in);
+        public static void main(String[] args) {
+        MainMenu();
+    }
+    public static void MainMenu(){
+        System.out.println("\nWelcome to number converter system");
+        while (true) {
+        System.out.print("\nEnter 1 for login");
+        System.out.print("\nEnter 2 for Register");System.out.print("\nEnter 3 for Exit");
+        int UserOption = Integer.parseInt(sc.nextLine());
+        switch (UserOption) {
+            case 1 -> LoginMenu();
+            case 2 -> RegisterMenu();
+            case 3 -> {
+                System.out.println("Exiting...");
+               
+                return;
+            }
+        
+            default->{ 
+                System.out.println("Enter an valid option");
+            }
+             
+        }
+                break;
+        }
+        }
+    public static void RegisterMenu(){
+        System.out.println("Enter the username:");
+        String UserName = sc.nextLine();
+        System.out.println("\nEnter Pssword");
+        String Password = sc.nextLine();
+        int uid = AuthController.CreateUser(UserName, Password);
+        if(uid == -1){
+            System.out.println("Creation of user is failed");
+            return ; 
+        }
+       
+        FeatureMenu(uid);
+    }
+    public static void LoginMenu(){
+        System.out.println("Enter the username:");
+        String UserName = sc.nextLine();
+        System.out.println("\nEnter Pssword");
+        String Password = sc.nextLine();
+        int uid = AuthController.verifyUser(UserName,Password);
+         if(uid == -1){
+            System.out.println("Creation of user is failed");
+            return ;
+        }
+        FeatureMenu(uid);
+       
+
+    }
+    public static void FeatureMenu(int uid) {
+         while (true) {
+            System.out.print("\nEnter 1 for Converting a number from the source base to target base");
+            System.out.print("\nEnter 2 for Conversion Stats of the current session");
+            System.out.print("\nEnter 3 for Conversion Stats of the history");
+            System.out.print("\nEnter 4 for Undo the last conversion in the current session");
+            System.out.print("\nEnter 9 for exit");
+            int UserOption = sc.nextInt();
+            sc.nextLine();
+            switch (UserOption) {
+                case 1 -> {
+                    System.out.println("Enter number for conversion");
+                    String UserValue = sc.nextLine();
+                    System.out.println("Enter base Source");
+                    int UserSourceBase = sc.nextInt();
+                    System.out.println("Enter target Source");
+                    int TargetBase = sc.nextInt();
+                    String res =ConverterController.convert(UserValue,UserSourceBase,TargetBase);
+                    System.out.println(res);
+                } 
+                case 2 ->{
+
+                }
+                case 3->{
+
+                }
+
+                case 4 ->{
+
+                }
+
+                case 9 -> {
+                    System.out.println("Program Exitting");
+                   
+                }
+            }
+            break;
+    }
+   
+   
+    }
+     
+}
