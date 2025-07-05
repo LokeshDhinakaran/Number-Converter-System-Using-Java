@@ -1,7 +1,9 @@
 import java.util.Scanner;
 
 import Controllers.UserController;
+import Models.Statistics;
 import Controllers.ConverterController;
+import Controllers.StatsController;
 
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
@@ -79,10 +81,13 @@ public class Main {
                     System.out.println(res);
                 } 
                 case 2 ->{
-
+                    System.out.println("printing current session stats:");
+                    StatsController.printCurrentSessionConversionStats(uid);
 
                 }
                 case 3->{
+                    System.out.println("printing the hisatory stats");
+                    StatsController.printhistory(uid);
 
                 }
 
@@ -96,6 +101,8 @@ public class Main {
                 }
 
                 case 9 -> {
+                    System.out.println("printing the current session stats beforee logging out");
+                     StatsController.printCurrentSessionConversionStats(uid);
                     UserController.SaveCurrentSessionConversions(uid);
                     System.out.println("Program Exitting by saiving the current session conversions to history");
                    

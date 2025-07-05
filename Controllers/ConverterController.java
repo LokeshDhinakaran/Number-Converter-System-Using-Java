@@ -92,15 +92,9 @@ public class ConverterController {
         }
        
     }
-    public static boolean UndoLastConversion(int UserId){
-        User currentUser = UserController.GetUserById(UserId);
-        if(currentUser.CurrentSession.size()>=1){
-            currentUser.CurrentSession.remove(currentUser.CurrentSession.size()-1);
-        currentUser.UndoCountInCurrentConversion+=1;
-          return true;
-        }
-        else{
-            return false;
-        }
+    public static boolean UndoLastConversion(int uid) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'UndoLastConversion'");
     }
-}
+    
+    }
