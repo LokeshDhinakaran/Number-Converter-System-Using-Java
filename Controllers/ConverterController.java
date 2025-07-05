@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Conversion;
+import Models.User;
 
 public class ConverterController {
     public static String errorMessage;
@@ -61,6 +62,12 @@ public class ConverterController {
      
     public static String convert(int UserId, String UserValue, int UserSourceBase,int TargetBase) {
         Conversion c = new Conversion(UserValue, UserSourceBase, TargetBase);
+        User user = UserController.GetUserById(UserId);
+        if(user == null){
+            System.out.println("User not found");
+            return "";
+        }
+        user.CurrentSession.add(c);
         if(ConverterController.isInteger(UserValue)){
             //Integer conversion logic
             String res =  ConverterController.IntegerConversionToTargetBase(UserValue, UserSourceBase, TargetBase);
@@ -84,5 +91,16 @@ public class ConverterController {
             return res;
         }
        
+    }
+    public static boolean UndoLastConversion(int UserId){
+        User currentUser = UserController.GetUserById(UserId);
+        try{
+        currentUser.CurrentSession.remove(currentUser.CurrentSession.size()-1);
+        currentUser.UndoCountInCurrentConversion+=1;
+        return true;
+    }
+        catch (Exception e){
+            return false;
+        }
     }
 }

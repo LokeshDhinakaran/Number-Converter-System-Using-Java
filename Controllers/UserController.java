@@ -5,17 +5,17 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 
-
-
+import Models.Conversion;
 import Models.User;
 
-public class AuthController {
+public class UserController {
     public static ArrayList<User> UserList; 
     static{
-        AuthController.LoadUserList();
+        UserController.LoadUserList();
     }
     public static boolean SaveUserList(){
         try (  ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("D:\\JAVA and DSA\\Codes\\Practice\\Longcoding\\NumberConverterSystem\\files\\User.txt"))) {
@@ -47,7 +47,7 @@ public class AuthController {
          if(UserName !=null && Password !=null && !UserName.trim().equals("") && !Password.trim().equals("")){
              int id = new Random().nextInt();
               UserList.add(new User(id ,UserName,Password));
-              if(!AuthController.SaveUserList()){
+              if(!UserController.SaveUserList()){
                 UserList.removeIf(User -> User.UserName.equals(UserName));
               }
               return id;
@@ -61,6 +61,26 @@ public class AuthController {
             }
         }
         return -1;
+    }
+    public static User GetUserById(int userId){
+        for (User user : UserList) {
+            if(user.id == userId){
+                return user;
+            }
+        }
+        return null;
+    }
+    public static void SaveCurrentSessionConversions(int UserId){
+        // Hashmap -> 29/06 key exists means -> current session data add
+        //if not create a key and assign values
+        User u = GetUserById(UserId);
+        if(u == null){
+            System.out.println("User does not exist");
+            return;
+        }
+        ArrayList<Conversion> ConversionToday = u.ConversionHistory.getOrDefault(LocalDate.now(), new ArrayList<>());
+        ConversionToday.addAll(u.CurrentSession);
+        u.ConversionHistory.put(LocalDate.now(), ConversionToday);
     }
     
     }

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-import Controllers.AuthController;
+import Controllers.UserController;
 import Controllers.ConverterController;
 
 public class Main {
@@ -36,7 +36,7 @@ public class Main {
         String UserName = sc.nextLine();
         System.out.println("\nEnter Pssword");
         String Password = sc.nextLine();
-        int uid = AuthController.CreateUser(UserName, Password);
+        int uid = UserController.CreateUser(UserName, Password);
         if(uid == -1){
             System.out.println("Creation of user is failed");
             return ; 
@@ -49,7 +49,7 @@ public class Main {
         String UserName = sc.nextLine();
         System.out.println("\nEnter Pssword");
         String Password = sc.nextLine();
-        int uid = AuthController.verifyUser(UserName,Password);
+        int uid = UserController.verifyUser(UserName,Password);
          if(uid == -1){
             System.out.println("Creation of user is failed");
             return ;
@@ -75,10 +75,11 @@ public class Main {
                     int UserSourceBase = sc.nextInt();
                     System.out.println("Enter target Source");
                     int TargetBase = sc.nextInt();
-                    String res =ConverterController.convert(UserValue,UserSourceBase,TargetBase);
+                    String res =ConverterController.convert(uid,UserValue,UserSourceBase,TargetBase);
                     System.out.println(res);
                 } 
                 case 2 ->{
+
 
                 }
                 case 3->{
@@ -86,11 +87,17 @@ public class Main {
                 }
 
                 case 4 ->{
-
+                    if(ConverterController.UndoLastConversion(uid)){
+                        System.out.println("Undo Successfully completed");  
+                    }
+                    else{
+                        System.out.println("undo operations can not be performed");
+                    }
                 }
 
                 case 9 -> {
-                    System.out.println("Program Exitting");
+                    UserController.SaveCurrentSessionConversions(uid);
+                    System.out.println("Program Exitting by saiving the current session conversions to history");
                    
                 }
             }
