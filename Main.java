@@ -1,8 +1,9 @@
 import java.util.Scanner;
 
 import Controllers.UserController;
-import Models.Statistics;
+
 import Controllers.ConverterController;
+import Controllers.FileController;
 import Controllers.StatsController;
 
 public class Main {
@@ -66,6 +67,10 @@ public class Main {
             System.out.print("\nEnter 2 for Conversion Stats of the current session");
             System.out.print("\nEnter 3 for Conversion Stats of the history");
             System.out.print("\nEnter 4 for Undo the last conversion in the current session");
+            System.out.print("\nEnter 5 for processiong batch of conversions");
+            System.out.print("\nEnter 6 for exporting current session conversion");
+            System.out.print("\nEnter 7 Exporting the history of conversions");
+            System.out.print("\nEnter 8 for quiz on conversion");
             System.out.print("\nEnter 9 for exit");
             int UserOption = sc.nextInt();
             sc.nextLine();
@@ -92,12 +97,37 @@ public class Main {
                 }
 
                 case 4 ->{
-                    if(ConverterController.UndoLastConversion(uid)){
+                    if(ConverterController.undoLastConversion(uid)){
                         System.out.println("Undo Successfully completed");  
                     }
                     else{
                         System.out.println("undo operations can not be performed");
                     }
+                }
+                case 5 -> {
+                    String filepath = sc.nextLine();
+                    FileController.BatchProcessingThroughFile(uid,filepath);
+                }
+
+                case 6 -> {
+                    if(FileController.ExportCurrentSessionConversions(uid)){
+                        System.out.println("Exporing completed successfully");
+                    }
+                    else{
+                       System.out.println("Export not cmpleted successfully"); 
+                    }
+                }
+                case 7 ->{
+                    if(FileController.ExportHistoryConversionsBydate(uid)){
+                        System.out.println("\nExporting the hstory to the file has been written successfully");
+                    }
+                    else{
+                        System.out.println("\nExporting history has been failed");
+                    }
+                }
+
+                case 8 ->{
+                    
                 }
 
                 case 9 -> {

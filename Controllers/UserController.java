@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Models.Conversion;
-import Models.Statistics;
 import Models.User;
 
 public class UserController {
@@ -83,19 +82,5 @@ public class UserController {
         ConversionToday.addAll(u.CurrentSession);
         u.ConversionHistory.put(LocalDate.now(), ConversionToday);
     }
-    public static Statistics getCureeentSessionStats(int UserId){
-        User u = UserController.GetUserById(UserId);
-        int TotalUndoCount = u.UndoCountInCurrentConversion; 
-        int TotalConversions = u.CurrentSession.size();
-        int FailedConversion = 0;
-        for (Conversion c : u.CurrentSession){
-            if(c.ErrorMessage != null){
-                FailedConversion++;
-            }
-        }
-        
-        return new Statistics(UserId, UserId, UserId, UserId, UserId, UserId);
-    }
-    
-    }
+}
 

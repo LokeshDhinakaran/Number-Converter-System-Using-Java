@@ -1,5 +1,8 @@
 package Controllers;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import Models.Conversion;
 import Models.User;
 
@@ -92,9 +95,15 @@ public class ConverterController {
         }
        
     }
-    public static boolean UndoLastConversion(int uid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'UndoLastConversion'");
+    public static boolean undoLastConversion(int userId) {
+        User currentUser = UserController.GetUserById(userId);
+        if (currentUser.CurrentSession.size() >= 1) {
+            currentUser.CurrentSession.remove(currentUser.CurrentSession.size() - 1);
+            currentUser.UndoCountInCurrentConversion += 1;
+            return true;
+        } else {
+            return false;
+        }
     }
     
-    }
+}
