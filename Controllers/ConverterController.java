@@ -94,12 +94,12 @@ public class ConverterController {
     }
     public static boolean UndoLastConversion(int UserId){
         User currentUser = UserController.GetUserById(UserId);
-        try{
-        currentUser.CurrentSession.remove(currentUser.CurrentSession.size()-1);
+        if(currentUser.CurrentSession.size()>=1){
+            currentUser.CurrentSession.remove(currentUser.CurrentSession.size()-1);
         currentUser.UndoCountInCurrentConversion+=1;
-        return true;
-    }
-        catch (Exception e){
+          return true;
+        }
+        else{
             return false;
         }
     }
