@@ -1,6 +1,4 @@
 package Models;
-import Models.Conversion;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;

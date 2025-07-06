@@ -1,8 +1,5 @@
 package Controllers;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-
 import Models.Conversion;
 import Models.User;
 
@@ -13,6 +10,7 @@ public class ConverterController {
     }
     public static String IntegerConversionToTargetBase(String UserValue, int UserSourceBase,int TargetBase){
         int ConvertedBase10Value=0;
+        String errorMessage = "";
         
         try{
              ConvertedBase10Value = Integer.parseInt(UserValue,UserSourceBase);
@@ -22,7 +20,7 @@ public class ConverterController {
             errorMessage = String.format("Error - Please give a valid value for the given base\n %s", nfe.getMessage());
         }
         String ConertedTargetValue = Integer.toString(ConvertedBase10Value,TargetBase);
-        return errorMessage == null? ConertedTargetValue: errorMessage;
+        return errorMessage.isEmpty() ? ConertedTargetValue : errorMessage;
     }
 
     public static String DecimalConversionHelper(String UserValue, int UserSourceBase,int TargetBase){
@@ -75,10 +73,10 @@ public class ConverterController {
             //Integer conversion logic
             String res =  ConverterController.IntegerConversionToTargetBase(UserValue, UserSourceBase, TargetBase);
             if(res.contains("error")){
-                c.ErrorMessage = res;
+                c.errorMessage = res;
             }
             else{
-                c.Result= res;
+                c.result= res;
             }
             return res;
         }
@@ -86,10 +84,10 @@ public class ConverterController {
             // Integer + fractional logic
            String res = ConverterController.DecimalConversionToTargetBase(UserValue, UserSourceBase, TargetBase);
             if(res.contains("error")){
-                c.ErrorMessage = res;
+                c.errorMessage = res;
             }
             else{
-                c.Result= res;
+                c.result= res;
             }
             return res;
         }

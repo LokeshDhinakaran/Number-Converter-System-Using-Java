@@ -4,6 +4,7 @@ import Controllers.UserController;
 
 import Controllers.ConverterController;
 import Controllers.FileController;
+import Controllers.QuizController;
 import Controllers.StatsController;
 
 public class Main {
@@ -11,29 +12,40 @@ public class Main {
         public static void main(String[] args) {
         MainMenu();
     }
-    public static void MainMenu(){
-        System.out.println("\nWelcome to number converter system");
-        while (true) {
+   public static void MainMenu() {
+    System.out.println("\nWelcome to number converter system");
+    while (true) {
         System.out.print("\nEnter 1 for login");
-        System.out.print("\nEnter 2 for Register");System.out.print("\nEnter 3 for Exit");
-        int UserOption = Integer.parseInt(sc.nextLine());
+        System.out.print("\nEnter 2 for Register");
+        System.out.print("\nEnter 3 for Exit\n");
+
+        String input = sc.nextLine().trim();
+
+        int UserOption;
+        try {
+            if (input.isEmpty()) {
+                System.out.println("Input cannot be empty. Please enter a number.");
+                continue;
+            }
+            UserOption = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a valid number.");
+            continue;
+        }
+
         switch (UserOption) {
             case 1 -> LoginMenu();
             case 2 -> RegisterMenu();
             case 3 -> {
                 System.out.println("Exiting...");
-               
                 return;
             }
+            default -> System.out.println("Enter a valid option");
+        }
+    }
+}
+
         
-            default->{ 
-                System.out.println("Enter an valid option");
-            }
-             
-        }
-                break;
-        }
-        }
     public static void RegisterMenu(){
         System.out.println("Enter the username:");
         String UserName = sc.nextLine();
@@ -127,7 +139,7 @@ public class Main {
                 }
 
                 case 8 ->{
-                    
+                    QuizController.StartQuiz();
                 }
 
                 case 9 -> {
@@ -135,10 +147,9 @@ public class Main {
                      StatsController.printCurrentSessionConversionStats(uid);
                     UserController.SaveCurrentSessionConversions(uid);
                     System.out.println("Program Exitting by saiving the current session conversions to history");
-                   
+                   return;
                 }
             }
-            break;
     }
    
    

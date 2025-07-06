@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
@@ -81,6 +80,8 @@ public class UserController {
         ArrayList<Conversion> ConversionToday = u.ConversionHistory.getOrDefault(LocalDate.now(), new ArrayList<>());
         ConversionToday.addAll(u.CurrentSession);
         u.ConversionHistory.put(LocalDate.now(), ConversionToday);
+        u.CurrentSession.clear();
+        UserController.SaveUserList();
     }
 }
 
